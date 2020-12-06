@@ -17,7 +17,7 @@ class ProductEventsValidatorAdapter implements ProductEventsValidator {
 
 
     private final EventPublisherFacade eventPublisher;
-    private ProductQuery productQuery;
+    private final ProductQuery productQuery;
 
     public void validateProductDoesNotExists(Product product) {
         if (getProduct(product) != null)

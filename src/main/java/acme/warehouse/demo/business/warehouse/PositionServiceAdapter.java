@@ -66,7 +66,6 @@ class PositionServiceAdapter implements PositionService {
                                 PositionModification.builder()
                                         .modification(position.getModification())
                                         .productId(position.getProductId())
-                                        .productName(position.getProductName())
                                         .build()
                         )
                         .user(authentication)

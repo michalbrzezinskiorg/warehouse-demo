@@ -13,6 +13,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PositionModification {
     private UUID productId;
-    private String productName;
     private Long modification;
 }

@@ -37,7 +37,7 @@ class PositionCommandHandlerAdapter implements PositionCommandHandler {
 
     private void modifyPosition(PositionEntity p, PositionModification modification) {
         long newState = p.getQuantity() + modification.getModification();
-        if (newState > 0) {
+        if (newState >= 0) {
             p.setQuantity(newState);
         } else {
             throw new IllegalStateException("cannot modify value to " + newState);

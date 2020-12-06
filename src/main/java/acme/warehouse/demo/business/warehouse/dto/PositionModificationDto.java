@@ -11,6 +11,5 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PositionModificationDto {
     UUID productId;
-    String productName;
     Long modification;
 }
