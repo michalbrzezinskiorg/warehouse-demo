@@ -1,10 +1,10 @@
-package acme.warehouse.demo.web.warehouse;
+package acme.warehouse.demo.web.warehouse.ports;
 
 import acme.warehouse.demo.business.warehouse.domain.Position;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import acme.warehouse.demo.business.warehouse.dto.PositionDto;
 import acme.warehouse.demo.business.warehouse.dto.PositionModificationDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 

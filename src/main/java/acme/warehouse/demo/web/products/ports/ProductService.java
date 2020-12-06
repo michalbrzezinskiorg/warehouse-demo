@@ -1,9 +1,9 @@
-package acme.warehouse.demo.web.products;
+package acme.warehouse.demo.web.products.ports;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import acme.warehouse.demo.business.products.domain.Product;
 import acme.warehouse.demo.web.products.dto.ProductDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;
 

@@ -4,7 +4,7 @@ import acme.warehouse.demo.business.warehouse.ports.PositionQuery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import acme.warehouse.demo.business.warehouse.ports.ProductQueryForWarehouse;
-import acme.warehouse.demo.eventstream.DomainEventsPublisher;
+import acme.warehouse.demo.eventstream.EventPublisherFacade;
 
 import static org.mockito.Mockito.mock;
 
@@ -12,15 +12,15 @@ class PositionServiceAdapterTest {
 
     private PositionQuery positionQuery;
     private ProductQueryForWarehouse productQuery;
-    private DomainEventsPublisher domainEventsPublisher;
+    private EventPublisherFacade eventPublisher;
     private PositionServiceAdapter positionServiceAdapter;
 
     @BeforeEach
     void setup() {
         positionQuery = mock(PositionQuery.class);
         productQuery = mock(ProductQueryForWarehouse.class);
-        domainEventsPublisher = mock(DomainEventsPublisher.class);
-        positionServiceAdapter = new PositionServiceAdapter(positionQuery, productQuery, domainEventsPublisher);
+        eventPublisher = mock(EventPublisherFacade.class);
+        positionServiceAdapter = new PositionServiceAdapter(positionQuery, productQuery, eventPublisher);
     }
 
     @Test

@@ -1,15 +1,15 @@
 package acme.warehouse.demo.business.products;
 
-import acme.warehouse.demo.eventstream.DomainEventsPublisher;
+import acme.warehouse.demo.business.products.domain.Product;
+import acme.warehouse.demo.business.products.ports.ProductQuery;
+import acme.warehouse.demo.eventstream.EventPublisherFacade;
 import acme.warehouse.demo.eventstream.products.events.CreateProductEvent;
-import acme.warehouse.demo.web.products.ProductService;
+import acme.warehouse.demo.web.products.dto.ProductDto;
+import acme.warehouse.demo.web.products.ports.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import acme.warehouse.demo.business.products.domain.Product;
-import acme.warehouse.demo.business.products.ports.ProductQuery;
-import acme.warehouse.demo.web.products.dto.ProductDto;
 
 import java.util.UUID;
 
@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 class ProductServiceAdapter implements ProductService {
     private final ProductQuery productQuery;
-    private final DomainEventsPublisher domainEventsPublisher;
+    private final EventPublisherFacade eventPublisher;
 
     @Override
     public void saveNewProduct(ProductDto productDto, String authentication) {
@@ -26,7 +26,7 @@ class ProductServiceAdapter implements ProductService {
                 .name(productDto.getName())
                 .description(productDto.getDescription())
                 .build();
-        domainEventsPublisher.publishCreateProductEvent(CreateProductEvent.builder()
+        eventPublisher.publishCreateProductEvent(CreateProductEvent.builder()
                 .product(product)
                 .user(authentication)
                 .build());

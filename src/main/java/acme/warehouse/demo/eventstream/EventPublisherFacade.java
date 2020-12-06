@@ -1,5 +1,6 @@
 package acme.warehouse.demo.eventstream;
 
+import acme.warehouse.demo.eventstream.products.events.CreateProductEvent;
 import acme.warehouse.demo.eventstream.products.events.ProductRejectedEvent;
 import acme.warehouse.demo.eventstream.warehouse.events.CreatePositionEvent;
 import acme.warehouse.demo.eventstream.warehouse.events.ModifyPositionEvent;
@@ -8,11 +9,10 @@ import acme.warehouse.demo.eventstream.warehouse.events.PositionRejectedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
-import acme.warehouse.demo.eventstream.products.events.CreateProductEvent;
 
 @Component
 @RequiredArgsConstructor
-public class DomainEventsPublisher {
+public class EventPublisherFacade {
 
     private final ApplicationEventPublisher applicationEventPublisher;
 

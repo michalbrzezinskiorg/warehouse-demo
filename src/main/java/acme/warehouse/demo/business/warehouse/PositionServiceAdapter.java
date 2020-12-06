@@ -1,21 +1,21 @@
 package acme.warehouse.demo.business.warehouse;
 
+import acme.warehouse.demo.business.products.domain.Product;
 import acme.warehouse.demo.business.warehouse.domain.Position;
 import acme.warehouse.demo.business.warehouse.domain.PositionModification;
+import acme.warehouse.demo.business.warehouse.dto.PositionDto;
+import acme.warehouse.demo.business.warehouse.dto.PositionModificationDto;
 import acme.warehouse.demo.business.warehouse.ports.PositionQuery;
+import acme.warehouse.demo.business.warehouse.ports.ProductQueryForWarehouse;
+import acme.warehouse.demo.eventstream.EventPublisherFacade;
 import acme.warehouse.demo.eventstream.warehouse.events.CreatePositionEvent;
 import acme.warehouse.demo.eventstream.warehouse.events.ModifyPositionEvent;
+import acme.warehouse.demo.web.warehouse.ports.PositionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import acme.warehouse.demo.eventstream.DomainEventsPublisher;
-import acme.warehouse.demo.business.products.domain.Product;
-import acme.warehouse.demo.business.warehouse.dto.PositionDto;
-import acme.warehouse.demo.business.warehouse.dto.PositionModificationDto;
-import acme.warehouse.demo.business.warehouse.ports.ProductQueryForWarehouse;
-import acme.warehouse.demo.web.warehouse.PositionService;
 
 import java.util.UUID;
 
@@ -26,7 +26,7 @@ class PositionServiceAdapter implements PositionService {
 
     private final PositionQuery positionQuery;
     private final ProductQueryForWarehouse productQuery;
-    private final DomainEventsPublisher domainEventsPublisher;
+    private final EventPublisherFacade eventPublisher;
 
     @Override
     public void saveNewPosition(PositionDto position, String authentication) {
@@ -36,7 +36,7 @@ class PositionServiceAdapter implements PositionService {
                 .productId(product.getId())
                 .quantity(position.getQuantity())
                 .build();
-        domainEventsPublisher.publishCreatePositionEvent(
+        eventPublisher.publishCreatePositionEvent(
                 CreatePositionEvent.builder()
                         .position(newPosition)
                         .user(authentication)
@@ -60,7 +60,7 @@ class PositionServiceAdapter implements PositionService {
 
     @Override
     public void modifyPosition(PositionModificationDto position, String authentication) {
-        domainEventsPublisher.publishModifyPositionEvent(
+        eventPublisher.publishModifyPositionEvent(
                 ModifyPositionEvent.builder()
                         .modification(
                                 PositionModification.builder()

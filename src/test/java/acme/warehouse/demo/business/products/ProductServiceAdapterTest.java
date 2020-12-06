@@ -1,6 +1,6 @@
 package acme.warehouse.demo.business.products;
 
-import acme.warehouse.demo.eventstream.DomainEventsPublisher;
+import acme.warehouse.demo.eventstream.EventPublisherFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -19,15 +19,15 @@ import static org.modelmapper.internal.util.Assert.isTrue;
 class ProductServiceAdapterTest {
 
     private ProductQuery productQuery;
-    private DomainEventsPublisher domainEventsPublisher;
+    private EventPublisherFacade eventPublisher;
     private ProductServiceAdapter productServiceAdapter;
     private Pageable pageableMock = PageRequest.of(0, 10);
 
     @BeforeEach
     void setup() {
         productQuery = mock(ProductQuery.class);
-        domainEventsPublisher = mock(DomainEventsPublisher.class);
-        productServiceAdapter = new ProductServiceAdapter(productQuery, domainEventsPublisher);
+        eventPublisher = mock(EventPublisherFacade.class);
+        productServiceAdapter = new ProductServiceAdapter(productQuery, eventPublisher);
     }
 
     @Test
@@ -37,7 +37,7 @@ class ProductServiceAdapterTest {
         //when
         productServiceAdapter.saveNewProduct(product, null);
         //then
-        verify(domainEventsPublisher).publishCreateProductEvent(any());
+        verify(eventPublisher).publishCreateProductEvent(any());
     }
 
     @Test

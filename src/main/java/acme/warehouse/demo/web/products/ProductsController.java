@@ -1,13 +1,14 @@
 package acme.warehouse.demo.web.products;
 
 import acme.warehouse.demo.business.products.domain.Product;
+import acme.warehouse.demo.config.beans.CurrentUser;
+import acme.warehouse.demo.web.products.dto.ProductDto;
+import acme.warehouse.demo.web.products.ports.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import acme.warehouse.demo.config.beans.CurrentUser;
-import acme.warehouse.demo.web.products.dto.ProductDto;
 
 import java.util.UUID;
 
